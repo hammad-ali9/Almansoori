@@ -8,23 +8,23 @@ const PageHeader = ({
   backgroundImage,
 }) => {
   return (
-    <div className="w-full h-[350px] md:h-[400px] bg-brand-primary flex items-center justify-center relative px-4">
+    <div className="w-full h-[350px] md:h-[400px] bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center relative px-4">
       <div className="text-center max-w-4xl mx-auto">
         {/* Title */}
-        <h2 className="section-heading font-secondary-600! uppercase mb-4!">
+        <h2 className="section-heading !text-white uppercase mb-4!">
           {title}
         </h2>
 
         {/* Breadcrumb */}
-        <div className="flex items-center justify-center gap-2 md:gap-3 text-brand-primary-950">
+        <div className="flex items-center justify-center gap-2 md:gap-3 text-white/80">
           <Link
             to={breadcrumbLink}
-            className="font-secondary-500 text-sm md:text-base lg:text-lg hover:text-brand-primary-800 transition-colors"
+            className="font-secondary-500 text-sm md:text-base lg:text-lg hover:text-white transition-colors"
           >
             {breadcrumb}
           </Link>
           <span className="text-lg md:text-xl">→</span>
-          <span className="font-secondary-600 text-sm md:text-base lg:text-lg">
+          <span className="font-secondary-600 text-sm md:text-base lg:text-lg text-white">
             {title}
           </span>
         </div>

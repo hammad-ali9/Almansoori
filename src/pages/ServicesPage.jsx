@@ -3,6 +3,7 @@ import PageHeader from "../components/PageHeader";
 import Services from "../components/Services";
 import HeroSection from "../components/HeroSection";
 import TestimonialsSection from "../components/TestimonialSection";
+import service_header from "../assets/service_header.jpg";
 
 const ServicesPage = () => {
   return (
@@ -11,7 +12,7 @@ const ServicesPage = () => {
         title="Services"
         breadcrumb="Home"
         breadcrumbLink="/about"
-        backgroundImage="/images/about.png"
+        backgroundImage={service_header}
         backgroundColor="bg-brand-primary-400"
       />
 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -7,6 +8,7 @@ const ContactSection = () => {
     email: "",
     message: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -15,10 +17,33 @@ const ContactSection = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('https://almansoori.vercel.app/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        toast.success(data.message || 'Message sent successfully!');
+        setFormData({ name: "", phone: "", email: "", message: "" });
+      } else {
+        toast.error(data.message || 'Something went wrong. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast.error('Failed to send message. Please try again later.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -28,19 +53,31 @@ const ContactSection = () => {
           {/* Left Side - Content */}
           <div className="space-y-8">
             {/* Title */}
-            <h2 className="font-primary text-4xl md:text-5xl lg:text-6xl text-brand-primary-950 leading-tight">
+            <h2 className="font-primary text-4xl md:text-5xl lg:text-6xl text-heading leading-tight">
               get in touch
             </h2>
 
             {/* Description */}
-            <p className="text-gray-700 text-base md:text-lg leading-relaxed max-w-md">
-              By adopting modern medical technology, we ensure high-quality
-              care, accurate
+            <p className="text-body text-base md:text-lg leading-relaxed max-w-md">
+              Ready to schedule your appointment? Contact us today and take the
+              first step towards your perfect smile.
             </p>
+
+            {/* Contact Info */}
+            <div className="space-y-3">
+              <a href="tel:+97332221676" className="flex items-center gap-3 text-heading hover:opacity-80 transition-opacity">
+                <span className="text-xl"></span>
+                <span className="font-secondary-600">+973 3222 1676</span>
+              </a>
+              <div className="flex items-center gap-3 text-heading">
+                <span className="text-xl"></span>
+                <span>AlMansoori Medical W.L.L, Riffa, Bahrain</span>
+              </div>
+            </div>
 
             {/* Social Media */}
             <div>
-              <p className="text-brand-primary-950 font-secondary-600 mb-4">
+              <p className="text-heading font-secondary-600 mb-4">
                 Follow Our Socials
               </p>
               <div className="flex gap-4">
@@ -48,7 +85,7 @@ const ContactSection = () => {
                   href="https://facebook.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 bg-brand-primary-950 rounded-full flex items-center justify-center text-white hover:bg-brand-primary-800 transition-colors"
+                  className="w-10 h-10 bg-heading rounded-full flex items-center justify-center text-white hover:opacity-80 transition-opacity"
                 >
                   <svg
                     className="w-5 h-5"
@@ -62,7 +99,7 @@ const ContactSection = () => {
                   href="https://twitter.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 bg-brand-primary-950 rounded-full flex items-center justify-center text-white hover:bg-brand-primary-800 transition-colors"
+                  className="w-10 h-10 bg-heading rounded-full flex items-center justify-center text-white hover:opacity-80 transition-opacity"
                 >
                   <svg
                     className="w-5 h-5"
@@ -73,10 +110,10 @@ const ContactSection = () => {
                   </svg>
                 </a>
                 <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/almansoorimedical"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 bg-brand-primary-950 rounded-full flex items-center justify-center text-white hover:bg-brand-primary-800 transition-colors"
+                  className="w-10 h-10 bg-heading rounded-full flex items-center justify-center text-white hover:opacity-80 transition-opacity"
                 >
                   <svg
                     className="w-5 h-5"
@@ -92,22 +129,22 @@ const ContactSection = () => {
             {/* Support Badges */}
             <div className="flex flex-wrap gap-6 pt-8">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-brand-primary-950 rounded-full flex-shrink-0"></div>
-                <span className="font-secondary-600 text-brand-primary-950">
-                  24/7 Support
+                <div className="w-12 h-12 bg-heading rounded-full flex-shrink-0 flex items-center justify-center text-white text-xl"></div>
+                <span className="font-secondary-600 text-heading">
+                  Call Us Anytime
                 </span>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-brand-primary-950 rounded-full flex-shrink-0"></div>
-                <span className="font-secondary-600 text-brand-primary-950">
-                  24/7 Support
+                <div className="w-12 h-12 bg-heading rounded-full flex-shrink-0 flex items-center justify-center text-white text-xl"></div>
+                <span className="font-secondary-600 text-heading">
+                  Riffa, Bahrain
                 </span>
               </div>
             </div>
           </div>
 
           {/* Right Side - Contact Form */}
-          <div className="bg-brand-primary-950 rounded-3xl p-8 md:p-10">
+          <div className="bg-heading rounded-3xl p-8 md:p-10">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name Input */}
               <input
@@ -116,7 +153,7 @@ const ContactSection = () => {
                 placeholder="Enter Your Name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full bg-transparent border-2 border-white/30 rounded-full px-6 py-4 text-white placeholder:text-white/60 focus:outline-none focus:border-brand-primary-300 transition-colors"
+                className="w-full bg-transparent border-2 border-white/30 rounded-full px-6 py-4 text-white placeholder:text-white/60 focus:outline-none focus:border-white transition-colors"
                 required
               />
 
@@ -128,7 +165,7 @@ const ContactSection = () => {
                   placeholder="Enter Phone Number"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full bg-transparent border-2 border-white/30 rounded-full px-6 py-4 text-white placeholder:text-white/60 focus:outline-none focus:border-brand-primary-300 transition-colors"
+                  className="w-full bg-transparent border-2 border-white/30 rounded-full px-6 py-4 text-white placeholder:text-white/60 focus:outline-none focus:border-white transition-colors"
                   required
                 />
                 <input
@@ -137,7 +174,7 @@ const ContactSection = () => {
                   placeholder="Enter Your Email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full bg-transparent border-2 border-white/30 rounded-full px-6 py-4 text-white placeholder:text-white/60 focus:outline-none focus:border-brand-primary-300 transition-colors"
+                  className="w-full bg-transparent border-2 border-white/30 rounded-full px-6 py-4 text-white placeholder:text-white/60 focus:outline-none focus:border-white transition-colors"
                   required
                 />
               </div>
@@ -149,13 +186,17 @@ const ContactSection = () => {
                 value={formData.message}
                 onChange={handleChange}
                 rows="6"
-                className="w-full bg-transparent border-2 border-white/30 rounded-3xl px-6 py-4 text-white placeholder:text-white/60 focus:outline-none focus:border-brand-primary-300 transition-colors resize-none"
+                className="w-full bg-transparent border-2 border-white/30 rounded-3xl px-6 py-4 text-white placeholder:text-white/60 focus:outline-none focus:border-white transition-colors resize-none"
                 required
               ></textarea>
 
               {/* Submit Button */}
-              <button type="submit" className="primary-btn">
-                <span>Submit</span>
+              <button
+                type="submit"
+                className="bg-white text-heading px-6 py-2.5 rounded-full font-medium hover:bg-gray-100 transition-colors"
+                disabled={isLoading}
+              >
+                <span>{isLoading ? 'Sending...' : 'Submit'}</span>
               </button>
             </form>
           </div>

@@ -26,17 +26,30 @@
 }
 
 @theme {
-  --color-brand-primary-50: #fefcec;
-  --color-brand-primary-100: #fdf4c8;
-  --color-brand-primary-200: #fae88d;
-  --color-brand-primary-300: #f7d54c;
-  --color-brand-primary: #f5c32a;
-  --color-brand-primary-500: #efa411;
-  --color-brand-primary-600: #d37e0c;
-  --color-brand-primary-700: #af5a0e;
-  --color-brand-primary-800: #8e4512;
-  --color-brand-primary-900: #753a12;
-  --color-brand-primary-950: #431d05;
+  /* Professional Gray Palette - Replacing Yellow/Gold */
+  --color-brand-primary-50: #F9FAFB;
+  --color-brand-primary-100: #F3F4F6;
+  --color-brand-primary-200: #E5E7EB;
+  --color-brand-primary-300: #D1D5DB;
+  --color-brand-primary: #374151;
+  --color-brand-primary-500: #1F2937;
+  --color-brand-primary-600: #111827;
+
+  /* Gray tones from CMYK Color Table */
+  --color-brand-primary-700: #AEB3B2;
+  /* Light Gray - for body text */
+  --color-brand-primary-800: #6B7280;
+  --color-brand-primary-900: #4A5568;
+  /* Dark Gray - for headings */
+  --color-brand-primary-950: #111827;
+
+  /* Semantic Colors */
+  --color-heading: #4A5568;
+  /* Dark Gray (C61 M51 Y46 K40) */
+  --color-text: #6B7280;
+  /* Medium Gray for readable body text */
+  --color-text-light: #9CA3AF;
+  /* Lighter gray for secondary text */
 
   --font-primary: primary;
   --font-secondary: helvetica-light;
@@ -58,18 +71,65 @@ body {
   }
 
   .primary-btn {
-    @apply bg-brand-primary-300/80 px-4 py-2 rounded-full hover:bg-brand-primary-200! duration-200 ease-in;
+    @apply bg-heading px-5 py-2.5 rounded-full hover:opacity-90 duration-200 ease-in shadow-md;
 
     span {
-      @apply text-brand-primary-950 font-medium;
+      @apply text-white font-medium;
+    }
+  }
+
+  .outline-btn {
+    @apply bg-transparent px-4 py-2 rounded-full border-2 border-white duration-200 ease-in;
+
+    span {
+      @apply text-white font-medium transition-colors duration-200;
+    }
+
+    &:hover {
+      @apply bg-white;
+
+      span {
+        @apply text-brand-primary-950;
+      }
     }
   }
 
   .primary-overlay {
-    @apply bg-brand-primary-300/80;
+    @apply bg-heading;
+  }
+
+  .brand-gradient {
+    background: linear-gradient(135deg, #FFD922 0%, #FCC917 16%, #F9B70A 43%, #F7AB02 71%, #F7A800 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .section-heading {
-    @apply font-primary text-3xl md:text-5xl 2xl:text-6xl leading-[135%] text-brand-primary-950;
+    @apply font-primary text-3xl md:text-5xl 2xl:text-6xl leading-[135%] text-heading;
+  }
+
+  .text-heading {
+    color: var(--color-heading);
+  }
+
+  .text-body {
+    color: var(--color-text);
+  }
+
+  .text-body-light {
+    color: var(--color-text-light);
+  }
+
+  /* Hide scrollbars globally */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  * {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
   }
 }

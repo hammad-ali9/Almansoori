@@ -1,42 +1,133 @@
-import { discoverCards } from "../data/discover";
-import DiscoverCard from "./DiscoverCard";
+import React from "react";
 
 const Discover = () => {
+  const doctors = [
+    {
+      name: "Dr. Aysha AlMansoori",
+      title: "Founder & Managing Director",
+      credentials: "BDS, MSc Aesthetic Dentistry (UCLA), MSc Restorative Dentistry",
+      bio: [
+        "Dr. Aysha AlMansoori is the founder and Managing Director of AlMansoori Medical. With over 30 years of experience in dentistry, she established the first dental clinic in Riffa in 1998, which has since grown into one of the leading medical centers in Bahrain.",
+        "She specializes in Face Enhancement Dentistry, Dental Face Lift, Aesthetic Dentistry, and Mandibular Advancement. Dr. Aysha holds multiple advanced degrees including a Master's in Aesthetic Dentistry from UCLA and a Master's in Restorative Dentistry from Manchester University.",
+        "Her vision is to provide individualized comprehensive wellbeing care using the latest technology, treating patients from across Bahrain and the GCC region."
+      ],
+      stats: [
+        { value: "30+", label: "Years Experience" },
+        { value: "15K+", label: "Patients Treated" },
+        { value: "1st", label: "Clinic in Riffa" },
+        { value: "GCC", label: "Patients Served" }
+      ],
+      image: "/doctors/ayesha 1.png"
+    },
+    {
+      name: "Dr. Aziza Yaser",
+      title: "Psychology & Wellness Consultant",
+      credentials: "BDS, DHP, MSc Psychology",
+      bio: [
+        "As an entrepreneur, Dr. Aziza values growth and purpose. After completing her Dental degree, she decided to pursue her passion in the field of mental health. She attained her diplomas in Psychotherapy and Clinical Hypnotherapy, followed by a Masters degree in Psychology.",
+        "Dr. Aziza works with individuals, couples, and families with a holistic and integrative approach to well-being using various modalities such as CBT, talk therapy, Somatic work, and clinical hypnotherapy.",
+        "\"Introspection, courage, resilience, and patience are fundamental attributes of strong character. It is my hope that clients develop the mental strength and inner faith to forge an intentional path in life.\""
+      ],
+      stats: [
+        { value: "MSc", label: "Psychology" },
+        { value: "DHP", label: "Psychotherapy" },
+        { value: "4+", label: "Years Experience" },
+        { value: "Holistic", label: "Approach" }
+      ],
+      image: "/doctors/dr aziza.png"
+    }
+  ];
+
   return (
-    <section className="w-full section-padding">
-      <div className="flex flex-col lg:flex-row lg:items-center gap-8">
-        <div className="flex flex-col w-full lg:w-1/2">
-          <div>
-            <h2 className="section-heading">
-              Discover What Makes Us Different
-            </h2>
-            <p className="text-brand-primary-950">
-              By adopting modern medical technology, we ensure high-quality
-              care, accurate assessments, and better patient experiences across
-              all healthcare services.
-            </p>
-          </div>
+    <section className="w-full section-padding bg-white">
+      {/* Section Header */}
+      <div className="text-center mb-16">
+        <span className="text-heading font-semibold tracking-widest uppercase text-sm">Our Team</span>
+        <h2 className="section-heading mt-3 mb-4">Meet the Owners</h2>
+        <p className="text-body max-w-xl mx-auto">
+          Decades of medical excellence combined with a holistic approach to your wellbeing.
+        </p>
+      </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-            {discoverCards.map((c, index) => (
-              <DiscoverCard
-                key={index}
-                icon={c.icon}
-                title={c.title}
-                desc={c.description}
-                bgColor={c.bgColor}
-              />
-            ))}
-          </div>
-        </div>
+      {/* Doctors - Stacked Layout */}
+      <div className="space-y-20 max-w-6xl mx-auto">
+        {doctors.map((doc, idx) => (
+          <div
+            key={idx}
+            className={`flex flex-col ${idx % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-10 lg:gap-16 items-center`}
+          >
+            {/* Image */}
+            <div className="w-full lg:w-2/5">
+              <div className="relative">
+                {/* Decorative background - using gray tones */}
+                <div className={`absolute -inset-4 bg-gray-200 rounded-[2rem] ${idx % 2 === 0 ? 'rotate-3' : '-rotate-3'}`}></div>
+                <div className={`absolute -inset-4 bg-gray-300 rounded-[2rem] ${idx % 2 === 0 ? '-rotate-2' : 'rotate-2'} opacity-60`}></div>
 
-        <div className="w-full lg:w-1/2 rounded-xl overflow-hidden max-h-[720px]">
-          <img
-            src="/images/doctor_in_yellow.png"
-            alt=""
-            className="w-full h-full"
-          />
-        </div>
+                {/* Main image */}
+                <div className="relative rounded-[2rem] overflow-hidden aspect-[3/4] shadow-2xl border-4 border-white">
+                  <img
+                    src={doc.image}
+                    alt={doc.name}
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="w-full lg:w-3/5">
+              {/* Title & Name */}
+              <div className="mb-6">
+                <span className="inline-block bg-gray-100 text-heading px-4 py-1.5 rounded-full text-sm font-medium mb-4">
+                  {doc.title}
+                </span>
+                <h3 className="font-primary text-3xl md:text-4xl lg:text-5xl text-heading">
+                  {doc.name.includes('AlMansoori') ? (
+                    <>
+                      {doc.name.split('AlMansoori')[0]}
+                      <span className="brand-gradient font-bold">AlMansoori</span>
+                    </>
+                  ) : doc.name}
+                </h3>
+                <p className="text-body font-medium mt-2">{doc.credentials}</p>
+              </div>
+
+              {/* Bio paragraphs */}
+              <div className="space-y-4 mb-8">
+                {doc.bio.map((p, i) => {
+                  const regex = /(Al[Mm]ansoori)/;
+                  const match = p.match(regex);
+                  const isQuote = p.startsWith('"');
+
+                  return (
+                    <p
+                      key={i}
+                      className={`text-body leading-relaxed ${isQuote ? 'italic border-l-4 border-gray-300 pl-4 text-heading' : ''}`}
+                    >
+                      {match && i === 0 ? (
+                        <>
+                          {p.substring(0, p.indexOf(match[0]))}
+                          <span className="brand-gradient font-semibold">{match[0]}</span>
+                          {p.substring(p.indexOf(match[0]) + match[0].length)}
+                        </>
+                      ) : p}
+                    </p>
+                  );
+                })}
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {doc.stats.map((stat, i) => (
+                  <div key={i} className="bg-gray-50 rounded-2xl p-4 text-center hover:bg-gray-100 hover:shadow-md transition-all border border-gray-100">
+                    <div className="font-primary text-2xl lg:text-3xl text-heading mb-1">{stat.value}</div>
+                    <p className="text-body text-xs font-medium uppercase tracking-wide">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

@@ -1,54 +1,61 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import image from "../assets/FSR_9780.jpg";
+
 
 const HeroSection = () => {
   const benefits = [
-    'Get Tailored Advice from Professionals',
-    'Get Tailored Advice from Professionals',
-    'Get Tailored Advice from Professionals',
-    'Get Tailored Advice from Professionals'
+    'Over 30 Years of Dental Excellence',
+    'First Dental Clinic in Riffa Since 1997',
+    'State-of-the-Art Digital Dentistry',
+    'Comprehensive Medical & Dental Care'
   ];
 
   return (
     <section className=" bg-gray-50">
       <div className="mx-auto">
         <div className="relative overflow-hidden h-[720px]">
-          
+
           {/* Background Image Container */}
           <div className="absolute inset-0">
-            <img 
-              src="/images/girl_smiling.png" 
-              alt="Happy person" 
+            <img
+              src={image}
+              alt="Happy patient with beautiful smile"
               className="w-full h-full object-cover"
             />
+            {/* Slight Dark Overlay */}
+            <div className="absolute inset-0 bg-black/20"></div>
           </div>
 
           {/* Content Overlay */}
           <div className="relative h-full flex items-center p-6 md:p-12">
-            
+
             {/* Dark Content Box */}
-            <div className="bg-brand-primary-950 rounded-3xl p-8 md:p-12 max-w-xl">
-              
-              <h1 className="font-primary text-3xl md:text-4xl lg:text-5xl leading-tight text-white mb-6">
-                we are here to serve your needs
+            <div className="bg-heading rounded-3xl p-8 md:p-12 max-w-xl">
+
+              <h1 className="font-primary text-2xl md:text-3xl lg:text-4xl leading-normal text-white mb-6">
+                Your Smile Deserves the Best Care
               </h1>
 
               <p className="text-white/90 leading-relaxed mb-8">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit 
-                tellus, luctus nec ullamcorper mattis pulvinar leo.
+                AlMansoori Medical provides comprehensive and individualized
+                care for the face, smile, skin, and mental health in a welcoming
+                and friendly environment. Experience healthcare that puts your
+                comfort first.
               </p>
 
               <ul className="space-y-3 mb-10">
                 {benefits.map((benefit, index) => (
                   <li key={index} className="flex items-start gap-3 text-white">
-                    <span className="text-brand-primary-300 text-xl flex-shrink-0">•</span>
+                    <span className="text-white text-xl flex-shrink-0">✓</span>
                     <span className="text-sm md:text-base">{benefit}</span>
                   </li>
                 ))}
               </ul>
 
-              <button className="primary-btn">
-                <span>Get Started Now</span>
-              </button>
+              <Link to="/contact" className="bg-white text-heading px-6 py-2.5 rounded-full font-medium hover:bg-gray-100 transition-colors">
+                <span>Book Your Appointment</span>
+              </Link>
             </div>
           </div>
         </div>

@@ -36,12 +36,12 @@ const HeaderMarquee = () => {
   }, []);
 
   const marqueeItems = [
-    "Innovation",
-    "Creativity",
-    "Ideas",
-    "Focus",
-    "Excellence",
-    "Passion",
+    "Where",
+    "Dental",
+    "and",
+    "Facial",
+    "wellbeing",
+    "meets",
   ];
 
   return (
@@ -50,7 +50,7 @@ const HeaderMarquee = () => {
         {marqueeItems.map((item, idx) => (
           <div
             key={idx}
-            className="marquee-item inline-flex items-center px-8 text-brand-primary-950 text-9xl font-bold"
+            className="marquee-item inline-flex items-center px-8 text-white/70 text-9xl font-bold"
           >
             {item}
           </div>
